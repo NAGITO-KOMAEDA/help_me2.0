@@ -55,6 +55,7 @@ private:
     void BuildRootSignature();
     void BuildShadersAndInputLayout();
     void BuildBoxGeometry();
+    void LoadSpongeModel();
     void BuildPSO();
 
 private:

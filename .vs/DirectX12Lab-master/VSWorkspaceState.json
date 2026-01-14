@@ -1,0 +1,14 @@
+{
+  "OutputFoldersPerTargetSystem": {
+    "Local Machine": [
+      "DirectX12Lab-master\\out\\build\\x64-debug",
+      "DirectX12Lab-master\\out\\install\\x64-debug",
+      "DirectX12Lab-master\\out\\build\\x64-release",
+      "DirectX12Lab-master\\out\\install\\x64-release",
+      "DirectX12Lab-master\\out\\build\\x86-debug",
+      "DirectX12Lab-master\\out\\install\\x86-debug",
+      "DirectX12Lab-master\\out\\build\\x86-release",
+      "DirectX12Lab-master\\out\\install\\x86-release"
+    ]
+  }
+}

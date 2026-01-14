@@ -1,0 +1,32 @@
+# Build results
+bin/
+obj/
+*.exe
+*.pdb
+*.ilk
+*.log
+*.idb
+*.tlog/
+
+# Visual Studio
+.vs/
+*.vcxproj.user
+*.suo
+*.db
+*.db-shm
+*.db-wal
+*.opendb
+
+# IDE
+.idea/
+
+# CMake
+CMakeFiles/
+cmake_install.cmake
+CMakeCache.txt
+
+# Temporary files
+*.tmp
+*.bak
+*~
+

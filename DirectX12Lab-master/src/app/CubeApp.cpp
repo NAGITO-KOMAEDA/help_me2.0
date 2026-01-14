@@ -3,10 +3,14 @@
 
 #include "../math/MathUtils.h"
 #include "../graphics/GpuUploadBuffer.h"
+#include "../resources/ObjLoader.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 				   PSTR cmdLine, int showCmd)
 {
+	(void)prevInstance;
+	(void)cmdLine;
+	(void)showCmd;
 	// Enable run-time memory check for debug builds.
 #if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
@@ -30,7 +34,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 CubeApp::CubeApp(HINSTANCE hInstance)
 : AppBase(hInstance)
 {
-	mMainWndCaption = L"krutoy kubik";
+	mMainWndCaption = L"cool sponza )";
 }
 
 CubeApp::~CubeApp()
@@ -49,7 +53,7 @@ bool CubeApp::Initialize()
 	BuildConstantBuffers();
     BuildRootSignature();
     BuildShadersAndInputLayout();
-    BuildBoxGeometry();
+    LoadSpongeModel(); // Загружаем модель спонжи вместо куба
     BuildPSO();
 
     // Execute the initialization commands.
@@ -74,6 +78,7 @@ void CubeApp::OnResize()
 
 void CubeApp::Update(const FrameTimer& gt)
 {
+	(void)gt;
 	// Convert Spherical to Cartesian coordinates.
 	float x = mRadius * sinf(mPhi) * cosf(mTheta);
 	float z = mRadius * sinf(mPhi) * sinf(mTheta);
@@ -112,6 +117,7 @@ void CubeApp::Update(const FrameTimer& gt)
 
 void CubeApp::Draw(const FrameTimer& gt)
 {
+	(void)gt;
     // Reuse the memory associated with command recording.
     // We can only reset when the associated command lists have finished execution on the GPU.
     ThrowIfFailed(mDirectCmdListAlloc->Reset());
@@ -161,8 +167,19 @@ void CubeApp::Draw(const FrameTimer& gt)
 
     mCommandList->SetGraphicsRootDescriptorTable(0, mCbvHeap->GetGPUDescriptorHandleForHeapStart());
 
+    // Определяем имя submesh (может быть "box", "sponge" или "sponza")
+    std::string submeshName = "box";
+    if (mBoxGeo->DrawArgs.find("sponza") != mBoxGeo->DrawArgs.end())
+    {
+        submeshName = "sponza";
+    }
+    else if (mBoxGeo->DrawArgs.find("sponge") != mBoxGeo->DrawArgs.end())
+    {
+        submeshName = "sponge";
+    }
+    
     mCommandList->DrawIndexedInstanced(
-        mBoxGeo->DrawArgs["box"].IndexCount,
+        mBoxGeo->DrawArgs[submeshName].IndexCount,
         1, 0, 0, 0);
 
     // Indicate a state transition on the resource usage: RenderTarget -> Present.
@@ -191,6 +208,7 @@ void CubeApp::Draw(const FrameTimer& gt)
 
 void CubeApp::OnMouseDown(WPARAM btnState, int x, int y)
 {
+	(void)btnState;
     mLastMousePos.x = x;
     mLastMousePos.y = y;
 
@@ -199,6 +217,9 @@ void CubeApp::OnMouseDown(WPARAM btnState, int x, int y)
 
 void CubeApp::OnMouseUp(WPARAM btnState, int x, int y)
 {
+	(void)btnState;
+	(void)x;
+	(void)y;
     ReleaseCapture();
 }
 
@@ -330,7 +351,7 @@ void CubeApp::BuildShadersAndInputLayout()
 
 void CubeApp::BuildBoxGeometry()
 {
-    const XMFLOAT4 cubeColor = XMFLOAT4(1.0f, 0.75f, 0.79f, 1.0f); // синий
+    const XMFLOAT4 cubeColor = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f); // синий
 
     // 24 вершины: по 4 на каждую грань, чтобы нормали были "плоские" (не усреднялись).
     std::array<Vertex, 24> vertices =
@@ -424,6 +445,144 @@ void CubeApp::BuildBoxGeometry()
     submesh.BaseVertexLocation = 0;
 
     mBoxGeo->DrawArgs["box"] = submesh;
+}
+
+void CubeApp::LoadSpongeModel()
+{
+    // Пробуем найти файл модели спонжи в разных местах
+    std::vector<std::wstring> possiblePaths = {
+        L"content/sponza.obj",
+        L"content/sponza.OBJ",
+        L"content/models/sponza.obj",
+        L"content/models/sponza.OBJ",
+        L"sponza.obj",
+        L"models/sponza.obj",
+        L"content/sponge.obj",
+        L"content/models/sponge.obj",
+        L"content/sponge.OBJ",
+        L"content/models/sponge.OBJ",
+        L"sponge.obj",
+        L"models/sponge.obj"
+    };
+
+    std::vector<ObjVertex> objVertices;
+    std::vector<uint32_t> objIndices;
+    bool loaded = false;
+    std::wstring loadedPath;
+
+    for (const auto& path : possiblePaths)
+    {
+        if (ObjLoader::LoadObj(path, objVertices, objIndices))
+        {
+            loaded = true;
+            loadedPath = path;
+            break;
+        }
+    }
+
+    if (!loaded)
+    {
+        // Если модель не найдена, используем куб как fallback
+        OutputDebugStringA("WARNING: Sponza model not found, using cube fallback\n");
+        BuildBoxGeometry();
+        return;
+    }
+    
+    OutputDebugStringA(("Loaded model from: " + std::string(loadedPath.begin(), loadedPath.end()) + "\n").c_str());
+
+    // Конвертируем ObjVertex в Vertex (добавляем цвет)
+    const XMFLOAT4 spongeColor = XMFLOAT4(0.8f, 0.8f, 0.9f, 1.0f); // Светло-серый цвет для спонжи
+    std::vector<Vertex> vertices;
+    vertices.reserve(objVertices.size());
+
+    for (const auto& objVert : objVertices)
+    {
+        Vertex v;
+        v.Pos = objVert.Position;
+        v.Normal = objVert.Normal;
+        v.Color = spongeColor;
+        vertices.push_back(v);
+    }
+
+    // Конвертируем индексы из uint32 в uint16 (если возможно)
+    std::vector<std::uint16_t> indices;
+    bool use16Bit = true;
+    for (uint32_t idx : objIndices)
+    {
+        if (idx > 65535)
+        {
+            use16Bit = false;
+            break;
+        }
+    }
+
+    if (use16Bit)
+    {
+        indices.reserve(objIndices.size());
+        for (uint32_t idx : objIndices)
+        {
+            indices.push_back(static_cast<std::uint16_t>(idx));
+        }
+    }
+
+    const UINT vbByteSize = (UINT)vertices.size() * sizeof(Vertex);
+    const UINT ibByteSize = use16Bit ? 
+        (UINT)indices.size() * sizeof(std::uint16_t) : 
+        (UINT)objIndices.size() * sizeof(uint32_t);
+
+    mBoxGeo = std::make_unique<MeshGeometry>();
+
+    ThrowIfFailed(D3DCreateBlob(vbByteSize, &mBoxGeo->VertexBufferCPU));
+    CopyMemory(mBoxGeo->VertexBufferCPU->GetBufferPointer(), vertices.data(), vbByteSize);
+
+    ThrowIfFailed(D3DCreateBlob(ibByteSize, &mBoxGeo->IndexBufferCPU));
+    if (use16Bit)
+    {
+        CopyMemory(mBoxGeo->IndexBufferCPU->GetBufferPointer(), indices.data(), ibByteSize);
+    }
+    else
+    {
+        CopyMemory(mBoxGeo->IndexBufferCPU->GetBufferPointer(), objIndices.data(), ibByteSize);
+    }
+
+    mBoxGeo->VertexBufferGPU = Dx12Utils::CreateDefaultBuffer(
+        md3dDevice.Get(), mCommandList.Get(),
+        vertices.data(), vbByteSize,
+        mBoxGeo->VertexBufferUploader
+    );
+
+    if (use16Bit)
+    {
+        mBoxGeo->IndexBufferGPU = Dx12Utils::CreateDefaultBuffer(
+            md3dDevice.Get(), mCommandList.Get(),
+            indices.data(), ibByteSize,
+            mBoxGeo->IndexBufferUploader
+        );
+        mBoxGeo->IndexFormat = DXGI_FORMAT_R16_UINT;
+    }
+    else
+    {
+        mBoxGeo->IndexBufferGPU = Dx12Utils::CreateDefaultBuffer(
+            md3dDevice.Get(), mCommandList.Get(),
+            objIndices.data(), ibByteSize,
+            mBoxGeo->IndexBufferUploader
+        );
+        mBoxGeo->IndexFormat = DXGI_FORMAT_R32_UINT;
+    }
+
+    mBoxGeo->VertexByteStride = sizeof(Vertex);
+    mBoxGeo->VertexBufferByteSize = vbByteSize;
+    mBoxGeo->IndexBufferByteSize = ibByteSize;
+
+    SubmeshGeometry submesh;
+    submesh.IndexCount = (UINT)(use16Bit ? indices.size() : objIndices.size());
+    submesh.StartIndexLocation = 0;
+    submesh.BaseVertexLocation = 0;
+
+    // Используем имя "sponza" или "sponge" в зависимости от загруженного файла
+    std::string modelName = (loadedPath.find(L"sponza") != std::wstring::npos) ? "sponza" : "sponge";
+    mBoxGeo->DrawArgs[modelName] = submesh;
+    mBoxGeo->Name = modelName;
 }
 
 void CubeApp::BuildPSO()

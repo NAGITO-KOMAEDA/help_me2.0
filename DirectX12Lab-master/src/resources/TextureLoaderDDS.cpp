@@ -1224,6 +1224,8 @@ static HRESULT CreateD3DResources12(
     ComPtr<ID3D12Resource>& texture,
     ComPtr<ID3D12Resource>& textureUploadHeap)
 {
+	(void)forceSRGB;
+	(void)isCubeMap;
     if (!device)
         return E_POINTER;
 
@@ -1681,6 +1683,7 @@ static HRESULT CreateTextureFromDDS12(
 	ComPtr<ID3D12Resource>& texture,
 	ComPtr<ID3D12Resource>& textureUploadHeap)
 {
+	(void)forceSRGB;
 	HRESULT hr = S_OK;
 
 	UINT width = header->width;

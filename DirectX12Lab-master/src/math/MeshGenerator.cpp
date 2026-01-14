@@ -91,7 +91,7 @@ MeshGenerator::MeshData MeshGenerator::CreateBox(float width, float height, floa
     // Put a cap on the number of subdivisions.
     numSubdivisions = std::min<uint32>(numSubdivisions, 6u);
 
-    for(uint32 i = 0; i < numSubdivisions; ++i)
+    for(uint32 subdivIdx = 0; subdivIdx < numSubdivisions; ++subdivIdx)
         Subdivide(meshData);
 
     return meshData;
@@ -473,6 +473,8 @@ MeshGenerator::MeshData MeshGenerator::CreateCylinder(float bottomRadius, float 
 void MeshGenerator::BuildCylinderTopCap(float bottomRadius, float topRadius, float height,
 											uint32 sliceCount, uint32 stackCount, MeshData& meshData)
 {
+	(void)bottomRadius;
+	(void)stackCount;
 	uint32 baseIndex = (uint32)meshData.Vertices.size();
 
 	float y = 0.5f*height;
@@ -509,6 +511,8 @@ void MeshGenerator::BuildCylinderTopCap(float bottomRadius, float topRadius, flo
 void MeshGenerator::BuildCylinderBottomCap(float bottomRadius, float topRadius, float height,
 											   uint32 sliceCount, uint32 stackCount, MeshData& meshData)
 {
+	(void)topRadius;
+	(void)stackCount;
 	// 
 	// Build bottom cap.
 	//

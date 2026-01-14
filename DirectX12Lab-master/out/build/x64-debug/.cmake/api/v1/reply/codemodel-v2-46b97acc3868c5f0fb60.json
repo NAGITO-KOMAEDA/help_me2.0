@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.31"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "DirectX12CustomLib",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "DirectX12CustomLib::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-DirectX12CustomLib-Debug-8bad567835d76d3fdb60.json",
+					"name" : "DirectX12CustomLib",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/annak/OneDrive/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/\u0438\u0433\u0440\u0430/\u043e\u0442\u043a\u0430\u0442 \u0440\u043f\u0433\u0448\u043a\u0438/help_me2/DirectX12Lab-master/out/build/x64-debug",
+		"source" : "C:/Users/annak/OneDrive/\u0420\u0430\u0431\u043e\u0447\u0438\u0439 \u0441\u0442\u043e\u043b/\u0438\u0433\u0440\u0430/\u043e\u0442\u043a\u0430\u0442 \u0440\u043f\u0433\u0448\u043a\u0438/help_me2/DirectX12Lab-master"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 8
+	}
+}

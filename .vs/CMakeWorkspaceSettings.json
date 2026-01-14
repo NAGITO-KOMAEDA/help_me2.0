@@ -1,0 +1,4 @@
+{
+  "enableCMake": true,
+  "sourceDirectory": "directx12lab-master"
+}

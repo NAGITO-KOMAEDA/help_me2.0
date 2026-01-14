@@ -1,0 +1,30 @@
+# ninja log v6
+7	41	7900811623414867	C:/Users/annak/OneDrive/Рабочий стол/игра/откат рпгшки/help_me2/DirectX12Lab-master/out/build/x64-debug/CMakeFiles/cmake.verify_globs	b01fed258685e4b6
+60	304	7900811624011840	CMakeFiles/DirectX12CustomLib.dir/src/math/MeshGenerator.cpp.obj.ddi	fb2ea58f8b091f1d
+49	334	7900811623888832	CMakeFiles/DirectX12CustomLib.dir/src/core/FrameTimer.cpp.obj.ddi	f3bb701599e87933
+57	398	7900811623985235	CMakeFiles/DirectX12CustomLib.dir/src/math/MathUtils.cpp.obj.ddi	66bd84fa08c242f2
+64	505	7900811624058644	CMakeFiles/DirectX12CustomLib.dir/src/resources/TextureLoaderDDS.cpp.obj.ddi	a1bda65ebc69dd77
+43	533	7900811623751783	CMakeFiles/DirectX12CustomLib.dir/src/app/AppBase.cpp.obj.ddi	71a0005a5ebd98f1
+46	555	7900811623751783	CMakeFiles/DirectX12CustomLib.dir/src/app/CubeApp.cpp.obj.ddi	995137f94874d909
+53	577	7900811623943174	CMakeFiles/DirectX12CustomLib.dir/src/graphics/Dx12Utils.cpp.obj.ddi	a7fa4f3e8a94601e
+68	598	7900811624075756	CMakeFiles/DirectX12CustomLib.dir/src/scene/CameraComponent.cpp.obj.ddi	dfc1bb6097b78847
+598	759	7900811630940599	CMakeFiles/DirectX12CustomLib.dir/CXX.dd	d7d28a5e625c5e71
+598	759	7900811630940599	C:/Users/annak/OneDrive/Рабочий стол/игра/откат рпгшки/help_me2/DirectX12Lab-master/out/build/x64-debug/CMakeFiles/DirectX12CustomLib.dir/CXXModules.json	d7d28a5e625c5e71
+598	759	7900811630940599	CMakeFiles/DirectX12CustomLib.dir/src/app/AppBase.cpp.obj.modmap	d7d28a5e625c5e71
+598	759	7900811630940599	CMakeFiles/DirectX12CustomLib.dir/src/app/CubeApp.cpp.obj.modmap	d7d28a5e625c5e71
+598	759	7900811630940599	CMakeFiles/DirectX12CustomLib.dir/src/core/FrameTimer.cpp.obj.modmap	d7d28a5e625c5e71
+598	759	7900811630940599	CMakeFiles/DirectX12CustomLib.dir/src/graphics/Dx12Utils.cpp.obj.modmap	d7d28a5e625c5e71
+598	759	7900811630940599	CMakeFiles/DirectX12CustomLib.dir/src/math/MathUtils.cpp.obj.modmap	d7d28a5e625c5e71
+598	759	7900811630940599	CMakeFiles/DirectX12CustomLib.dir/src/math/MeshGenerator.cpp.obj.modmap	d7d28a5e625c5e71
+598	759	7900811630940599	CMakeFiles/DirectX12CustomLib.dir/src/resources/TextureLoaderDDS.cpp.obj.modmap	d7d28a5e625c5e71
+598	759	7900811630940599	CMakeFiles/DirectX12CustomLib.dir/src/scene/CameraComponent.cpp.obj.modmap	d7d28a5e625c5e71
+767	1438	7900811631049638	CMakeFiles/DirectX12CustomLib.dir/src/core/FrameTimer.cpp.obj	ea80becca93123a9
+778	1733	7900811631203266	CMakeFiles/DirectX12CustomLib.dir/src/math/MeshGenerator.cpp.obj	ec23309cc9e79093
+775	1756	7900811631163396	CMakeFiles/DirectX12CustomLib.dir/src/math/MathUtils.cpp.obj	49c72b191c335ae0
+782	2158	7900811631240649	CMakeFiles/DirectX12CustomLib.dir/src/resources/TextureLoaderDDS.cpp.obj	995d4a061c206d5d
+771	2835	7900811631128924	CMakeFiles/DirectX12CustomLib.dir/src/graphics/Dx12Utils.cpp.obj	51e0c72cf335901a
+761	2846	7900811631003927	CMakeFiles/DirectX12CustomLib.dir/src/app/AppBase.cpp.obj	9b792760d5d19056
+764	2897	7900811631049638	CMakeFiles/DirectX12CustomLib.dir/src/app/CubeApp.cpp.obj	e9808d52d2ab456b
+786	2903	7900811631275581	CMakeFiles/DirectX12CustomLib.dir/src/scene/CameraComponent.cpp.obj	49677d33cda0e459
+2903	3245	7900811652413719	DirectX12CustomLib.exe	4e5b70bab6639dbd
+67	103	7900819575957203	C:/Users/annak/OneDrive/Рабочий стол/игра/откат рпгшки/help_me2/DirectX12Lab-master/out/build/x64-debug/CMakeFiles/cmake.verify_globs	b01fed258685e4b6

@@ -594,10 +594,10 @@ void AppBase::LogAdapters()
         ++i;
     }
 
-    for(size_t i = 0; i < adapterList.size(); ++i)
+    for(size_t j = 0; j < adapterList.size(); ++j)
     {
-        LogAdapterOutputs(adapterList[i]);
-        ReleaseCom(adapterList[i]);
+        LogAdapterOutputs(adapterList[j]);
+        ReleaseCom(adapterList[j]);
     }
 }
 
